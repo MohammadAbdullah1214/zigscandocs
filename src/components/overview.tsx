@@ -38,7 +38,7 @@ export function Overview({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel >Overview</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-lg text-[#55C3E3]">Overview</SidebarGroupLabel>
       <SidebarMenu>
         {overview.map((item) => (
           <SidebarMenuItem key={item.name}>
