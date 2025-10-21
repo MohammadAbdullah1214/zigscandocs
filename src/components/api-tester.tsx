@@ -118,7 +118,7 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
               className="w-full"
             >
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {loading ? "Testing..." : "Test API"}
+              {loading ? "Testing..." : "Try API"}
             </Button>
           </div>
         </CardContent>
@@ -138,7 +138,7 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
       {response && (
         <Card>
           <CardHeader>
-            <CardTitle>Response</CardTitle>
+            <CardTitle>API Response</CardTitle>
           </CardHeader>
           <CardContent>
             <pre className="overflow-auto rounded-lg bg-muted p-4 text-sm">{JSON.stringify(response, null, 2)}</pre>

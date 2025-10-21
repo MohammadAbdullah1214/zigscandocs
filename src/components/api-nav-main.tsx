@@ -23,7 +23,7 @@ export function ApiNavMain() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>API Endpoints</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-lg text-[#55C3E3]">API Endpoints</SidebarGroupLabel>
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const IconComponent = (LucideIcons as Record<string, LucideIcon>)[category.icon] || LucideIcons.Code
