@@ -6,6 +6,7 @@ import { AudioWaveform, BookOpen, Frame, GalleryVerticalEnd, Key, Lock, Map, Pie
 import { NavMain } from "@/components/nav-main"
 import { Overview } from "@/components/overview"
 import { ApiPages } from "@/components/api-pages"
+import { ApiNavMain } from "@/components/api-nav-main"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
@@ -42,18 +43,18 @@ const data = {
       icon: Telescope,
     },
   ],
-    apipages: [
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    }
-  ],
+  //   apipages: [
+  //   {
+  //     name: "Ping",
+  //     url: "#",
+  //     icon: Lock,
+  //   },
+  //   {
+  //     name: "Key",
+  //     url: "#",
+  //     icon: Key,
+  //   }
+  // ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -62,7 +63,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className="mt-12">
         <NavMain items={data.navMain} />
         <Overview overview={data.overview} />
-        <ApiPages apipages={data.apipages} />
+        {/* <ApiPages apipages={data.apipages} /> */}
+        <ApiNavMain></ApiNavMain>
       </SidebarContent>
       {/* <SidebarFooter>
         <NavUser user={data.user} />
