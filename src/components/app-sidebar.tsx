@@ -52,66 +52,6 @@ const data = {
       name: "Key",
       url: "#",
       icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
-    },
-    {
-      name: "Ping",
-      url: "#",
-      icon: Lock,
-    },
-    {
-      name: "Key",
-      url: "#",
-      icon: Key,
     }
   ],
 }
@@ -124,9 +64,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Overview overview={data.overview} />
         <ApiPages apipages={data.apipages} />
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <NavUser user={data.user} />
-      </SidebarFooter>
+      </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
   )
