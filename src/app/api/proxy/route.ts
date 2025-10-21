@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Endpoint parameter is required" }, { status: 400 })
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.zigscan.com"
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://zigscan-api.zigscan.org"
     let url = `${baseUrl}${endpoint}`
 
     // Add query parameters if provided
