@@ -3,6 +3,7 @@
 import * as React from "react"
 import { ChevronRight, type LucideIcon } from "lucide-react"
 import * as LucideIcons from "lucide-react"
+import { useSearchParams } from "next/navigation"
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import {
@@ -20,10 +21,12 @@ import Link from "next/link"
 
 export function ApiNavMain() {
   const [activeCategory, setActiveCategory] = React.useState<ApiCategory | null>("ping")
+  const searchParams = useSearchParams()
+  const activeEndpoint = searchParams.get("endpoint")
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="text-lg text-[#55C3E3]">API Endpoints</SidebarGroupLabel>
+      <SidebarGroupLabel>API Endpoints</SidebarGroupLabel>
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const IconComponent = (LucideIcons as Record<string, LucideIcon>)[category.icon] || LucideIcons.Code
@@ -43,16 +46,23 @@ export function ApiNavMain() {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {category.endpoints.map((endpoint) => (
-                      <SidebarMenuSubItem key={endpoint.path}>
-                        <SidebarMenuSubButton asChild>
-                          <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
-                            <span className="text-xs font-mono">{endpoint.method}</span>
-                            <span className="ml-2 truncate text-sm">{endpoint.name}</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
+                    {category.endpoints.map((endpoint) => {
+                      const isActive = activeEndpoint === endpoint.path
+
+                      return (
+                        <SidebarMenuSubItem key={endpoint.path}>
+                          <SidebarMenuSubButton
+                            asChild
+                            className={isActive ? "rounded-full bg-blue-200 text-blue-900" : ""}
+                          >
+                            <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
+                              <span className="text-xs font-mono">{endpoint.method}</span>
+                              <span className="ml-2 truncate text-sm">{endpoint.name}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      )
+                    })}
                   </SidebarMenuSub>
                 </CollapsibleContent>
               </SidebarMenuItem>

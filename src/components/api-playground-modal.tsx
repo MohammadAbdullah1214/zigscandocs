@@ -153,7 +153,7 @@ export function ApiPlaygroundModal({ open, onOpenChange, endpoint, category }: A
               {loading ? "Getting..." : "GET"}
             </Button>
 
-            <label className="text-sm font-semibold mb-2 block">Your Key: <span className="text-xs text-muted-foreground">ZL5fWC48NGZ-PCD9vJarwfVQchsqw0lzNI04MSdGV3E</span></label>
+            <label className="text-sm font-semibold mb-2 block">Your Key: <span className="text-xs text-muted-foreground">{process.env.NEXT_PUBLIC_API_KEY}</span></label>
           </div>
 
           {/* Right Side - Code Examples & Response */}

@@ -57,7 +57,7 @@ print(response.json())`,
 const options = {
   method: "${endpoint.method}",
   headers: {
-    "x-cg-pro-api-key": "${authKey || "<api-key>"}"
+    "api-key": "${authKey || "<api-key>"}"
   }
 };
 
@@ -67,7 +67,7 @@ fetch(url, options)
   .catch(err => console.error(err));`,
 
     curl: `curl -X ${endpoint.method} "https://api.example.com${buildEndpointPath()}" \\
-  -H "x-cg-pro-api-key: ${authKey || "<api-key>"}"`,
+  -H "api-key: ${authKey || "<api-key>"}"`,
   }
 
   return (
