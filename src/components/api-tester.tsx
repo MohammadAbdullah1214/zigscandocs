@@ -42,7 +42,7 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
           <div className="space-y-4">
             <div className="rounded-lg bg-muted p-3 font-mono text-sm">{endpoint.path}</div>
 
-            {endpoint.parameters.length > 0 && (
+            {/* {endpoint.parameters.length > 0 && (
               <div className="space-y-3">
                 <h4 className="font-semibold text-sm">Parameters</h4>
                 {endpoint.parameters.map((param) => (
@@ -60,11 +60,11 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
 
             <Button
               onClick={() => setPlaygroundOpen(true)}
-              disabled={endpoint.parameters.some((p) => p.required && !parameters[p.name])}
+              // disabled={endpoint.parameters.some((p) => p.required && !parameters[p.name])}
               className="w-full"
             >
               Test API

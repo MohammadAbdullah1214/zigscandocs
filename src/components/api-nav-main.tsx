@@ -47,21 +47,18 @@ export function ApiNavMain() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {category.endpoints.map((endpoint) => {
-                      const isActive = activeEndpoint === endpoint.path
-
-                      return (
-                        <SidebarMenuSubItem key={endpoint.path}>
-                          <SidebarMenuSubButton
-                            asChild
-                            className={isActive ? "rounded-full bg-blue-200 text-blue-900" : ""}
-                          >
-                            <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
-                              <span className="text-xs font-mono">{endpoint.method}</span>
-                              <span className="ml-2 truncate text-sm">{endpoint.name}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      )
+                    const isActive = activeEndpoint === endpoint.path
+                    
+                    return(
+                      <SidebarMenuSubItem key={endpoint.path}>
+                        <SidebarMenuSubButton asChild className={isActive ? "rounded-full bg-blue-200 text-blue-900" : ""}>
+                          <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
+                            <span className="text-xs font-mono">{endpoint.method}</span>
+                            <span className="ml-2 truncate text-sm">{endpoint.name}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    )
                     })}
                   </SidebarMenuSub>
                 </CollapsibleContent>
