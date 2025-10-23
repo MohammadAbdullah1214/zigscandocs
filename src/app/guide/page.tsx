@@ -46,7 +46,7 @@ export default function GuidePage() {
             </div>
 
             {/* Quick Start Cards */}
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2 items-start justify-start">
               {/* Viewing Blocks */}
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>

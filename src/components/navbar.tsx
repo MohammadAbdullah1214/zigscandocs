@@ -1,13 +1,19 @@
 "use client"
 
-import { Search, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { Search, Menu, X, Sun, Moon } from "lucide-react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Avoid hydration mismatch
+  useEffect(() => setMounted(true), [])
 
   const navItems = [
     { label: "Documentation", href: "#" },
@@ -21,10 +27,9 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <img className="w-35
-           h-auto" src="/assets/zigscanlogo.webp" alt=""/>
+          <img className="w-35 h-auto" src="/assets/zigscanlogo.webp" alt="ZigScan Logo" />
 
-          {/* Search Bar - Center */}
+          {/* Search Bar (Center) */}
           <div className="hidden flex-1 items-center justify-center px-4 md:flex">
             <div className="relative w-full max-w-md">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -36,32 +41,43 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Desktop Navigation - Right */}
-          <div className="hidden items-center gap-1 lg:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Right Actions */}
+          {/* Right Section */}
           <div className="flex items-center gap-2">
-            {/* Mobile Search Button */}
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-              <Search className="h-5 w-5" />
-            </Button>
+            {/* Desktop Navigation */}
+            <div className="hidden items-center gap-1 lg:flex">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Theme Toggle */}
+            {mounted && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-5 w-5 text-foreground" />
+                ) : (
+                  <Moon className="h-5 w-5 text-foreground" />
+                )}
+              </Button>
+            )}
 
             {/* Sign In Button */}
             <Button variant="outline" size="sm" className="hidden sm:inline-flex bg-transparent">
               Sign In
             </Button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
