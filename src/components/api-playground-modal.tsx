@@ -135,7 +135,7 @@ export function ApiPlaygroundModal({ open, onOpenChange, endpoint, category }: A
                         value={parameters[param.name] || ""}
                         onChange={(e) => handleParameterChange(param.name, e.target.value)}
                         type={param.type === "number" ? "number" : "text"}
-                        size="sm"
+                        // size="sm"
                       />
                     </div>
                   ))}
