@@ -29,7 +29,8 @@ export function ApiNavMain() {
       <SidebarGroupLabel>API Endpoints</SidebarGroupLabel>
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
-          const IconComponent = (LucideIcons as Record<string, LucideIcon>)[category.icon] || LucideIcons.Code
+          const IconComponent = (LucideIcons as unknown as Record<string, LucideIcon>)[category.icon] ?? LucideIcons.Code
+
 
           return (
             <Collapsible key={key} asChild defaultOpen={activeCategory === key} className="group/collapsible">
