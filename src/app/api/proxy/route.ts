@@ -1,6 +1,3 @@
-// API Proxy Route Handler
-// This route proxies requests to the ZigScan API and handles parameters
-
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest) {
@@ -19,7 +16,7 @@ export async function GET(request: NextRequest) {
       try {
         const parsedParams = JSON.parse(params)
         queryString = new URLSearchParams(parsedParams).toString()
-      } catch (e) {
+      } catch {
         return NextResponse.json({ error: "Invalid parameters format" }, { status: 400 })
       }
     }
@@ -27,20 +24,19 @@ export async function GET(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://zigscan-api.zigscan.org"
     const url = `${baseUrl}${endpoint}${queryString ? "?" + queryString : ""}`
 
+    // 🟢 Get auth header from client if provided
+    const clientAuth = request.headers.get("authorization")
+
     // Make the request to the actual API
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Add API key if available
-        ...(process.env.NEXT_PUBLIC_API_KEY && {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-        }),
+        Authorization: clientAuth || `Bearer ${process.env.NEXT_PUBLIC_API_KEY || ""}`,
       },
     })
 
     const data = await response.json()
-
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error("API Proxy Error:", error)
@@ -59,25 +55,24 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://zigscan-api.zigscan.org"
     let url = `${baseUrl}${endpoint}`
 
-    // Add query parameters if provided
     if (params) {
       const queryString = new URLSearchParams(params).toString()
       url += `?${queryString}`
     }
 
+    // 🟢 Forward client Authorization header
+    const clientAuth = request.headers.get("authorization")
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(process.env.NEXT_PUBLIC_API_KEY && {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-        }),
+        Authorization: clientAuth || `Bearer ${process.env.NEXT_PUBLIC_API_KEY || ""}`,
       },
       body: JSON.stringify(body || {}),
     })
 
     const data = await response.json()
-
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error("API Proxy Error:", error)

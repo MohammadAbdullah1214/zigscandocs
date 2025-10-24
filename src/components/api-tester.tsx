@@ -26,7 +26,7 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
 
   return (
     <>
-      <Card className="">
+      <Card className="w-[500px]">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>

@@ -13,8 +13,17 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle2, AlertCircle, Users } from "lucide-react"
+import { TableOfContents } from "@/components/table-of-contents"
 
 export default function GettingStartedPage() {
+  const tocItems = [
+    { id: "overview", label: "Overview", level: 1 },
+    { id: "whatiszigscan", label: "What is ZIGScan?", level: 2 },
+    { id: "status", label: "Status", level: 2 },
+    { id: "audience", label: "Who should use ZIGScan?", level: 2 },
+    { id: "next-steps", label: "Next Steps", level: 1 },
+  ]
+
   return (
     <>
       <Navbar />
@@ -42,12 +51,14 @@ export default function GettingStartedPage() {
           <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
             {/* Hero Section */}
             <div className="space-y-2">
-              <h1 className="text-4xl font-bold tracking-tight">Overview</h1>
+              <h1 id="overview" className="text-4xl font-bold tracking-tight">
+                Overview
+              </h1>
               <p className="text-lg text-muted-foreground">Get started with ZIGScan and understand the ecosystem</p>
             </div>
 
             {/* What is ZIGScan */}
-            <Card id="whatiszigscan" className="border-l-4 border-l-blue-500">
+            <Card id="whatiszigscan" className="border-l-4 border-l-blue-500 w-[580px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-blue-500" />
@@ -93,7 +104,7 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Status */}
-            <Card id="status" className="border-l-4 border-l-amber-500">
+            <Card id="status" className="border-l-4 border-l-amber-500 w-[580px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-amber-500" />
@@ -127,7 +138,7 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Who should use ZIGScan */}
-            <Card id="audience" className="border-l-4 border-l-purple-500">
+            <Card id="audience" className="border-l-4 border-l-purple-500 w-[580px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-purple-500" />
@@ -206,7 +217,7 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Additional Resources */}
-            <div className="space-y-4 mt-8">
+            <div id="next-steps" className="space-y-4 mt-8">
               <h2 className="text-2xl font-bold">Next Steps</h2>
               <div className="grid gap-4 md:grid-cols-2">
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
@@ -235,6 +246,8 @@ export default function GettingStartedPage() {
               </div>
             </div>
           </div>
+
+          <TableOfContents items={tocItems} />
         </SidebarInset>
       </SidebarProvider>
     </>

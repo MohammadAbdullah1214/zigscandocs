@@ -2,8 +2,6 @@
 
 import type * as React from "react"
 import { BookOpen, Frame, PieChart, TerminalSquareIcon, ChevronRight } from "lucide-react"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 import { ApiNavMain } from "@/components/api-nav-main"
 import { useState, useEffect } from "react"

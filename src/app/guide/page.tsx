@@ -12,8 +12,18 @@ import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { TableOfContents } from "@/components/table-of-contents"
 
 export default function GuidePage() {
+  const tocItems = [
+    { id: "quick-start", label: "Quick Start Guide", level: 1 },
+    { id: "viewing-blocks", label: "Viewing Blocks", level: 2 },
+    { id: "viewing-transactions", label: "Viewing Transactions", level: 2 },
+    { id: "checking-wallets", label: "Checking Wallets", level: 2 },
+    { id: "validators", label: "Validators", level: 2 },
+    { id: "key-concepts", label: "Key Concepts", level: 1 },
+  ]
+
   return (
     <>
       <Navbar />
@@ -41,14 +51,16 @@ export default function GuidePage() {
           <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
             {/* Hero Section */}
             <div className="space-y-2">
-              <h1 className="text-4xl font-bold tracking-tight">Quick Start Guide</h1>
+              <h1 id="quick-start" className="text-4xl font-bold tracking-tight">
+                Quick Start Guide
+              </h1>
               <p className="text-lg text-muted-foreground">Learn how to navigate ZIGScan and explore blockchain data</p>
             </div>
 
             {/* Quick Start Cards */}
-            <div className="grid gap-6 md:grid-cols-2 items-start justify-start">
+            <div className="grid gap-6 grid-cols-1 items-start justify-start w-[600px]">
               {/* Viewing Blocks */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card id="viewing-blocks" className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Badge variant="default">1</Badge>
@@ -75,7 +87,7 @@ export default function GuidePage() {
               </Card>
 
               {/* Viewing Transactions */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card id="viewing-transactions" className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Badge variant="default">2</Badge>
@@ -102,7 +114,7 @@ export default function GuidePage() {
               </Card>
 
               {/* Checking Wallets */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card id="checking-wallets" className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Badge variant="default">3</Badge>
@@ -127,7 +139,7 @@ export default function GuidePage() {
               </Card>
 
               {/* Validators */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card id="validators" className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Badge variant="default">4</Badge>
@@ -151,9 +163,9 @@ export default function GuidePage() {
             </div>
 
             {/* Glossary Section */}
-            <div className="space-y-4 mt-8">
+            <div id="key-concepts" className="space-y-4 mt-8">
               <h2 className="text-2xl font-bold">Key Concepts</h2>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2 w-[690px]">
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-lg">Block</CardTitle>
@@ -225,6 +237,8 @@ export default function GuidePage() {
               </div>
             </div>
           </div>
+
+          <TableOfContents items={tocItems} />
         </SidebarInset>
       </SidebarProvider>
     </>
