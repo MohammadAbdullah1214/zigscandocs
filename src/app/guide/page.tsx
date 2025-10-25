@@ -21,7 +21,7 @@ export default function GuidePage() {
     { id: "viewing-transactions", label: "Viewing Transactions", level: 2 },
     { id: "checking-wallets", label: "Checking Wallets", level: 2 },
     { id: "validators", label: "Validators", level: 2 },
-    { id: "key-concepts", label: "Key Concepts", level: 1 },
+    { id: "key-concepts", label: "Key Concepts", level: 2 },
   ]
 
   return (
@@ -58,7 +58,7 @@ export default function GuidePage() {
             </div>
 
             {/* Quick Start Cards */}
-            <div className="grid gap-6 grid-cols-1 items-start justify-start w-[600px]">
+            <div className="grid gap-6 grid-cols-1 items-start justify-start w-[685px]">
               {/* Viewing Blocks */}
               <Card id="viewing-blocks" className="hover:shadow-lg transition-shadow">
                 <CardHeader>

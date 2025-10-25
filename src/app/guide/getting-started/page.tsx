@@ -21,7 +21,7 @@ export default function GettingStartedPage() {
     { id: "whatiszigscan", label: "What is ZIGScan?", level: 2 },
     { id: "status", label: "Status", level: 2 },
     { id: "audience", label: "Who should use ZIGScan?", level: 2 },
-    { id: "next-steps", label: "Next Steps", level: 1 },
+    { id: "next-steps", label: "Next Steps", level: 2 },
   ]
 
   return (
@@ -219,7 +219,7 @@ export default function GettingStartedPage() {
             {/* Additional Resources */}
             <div id="next-steps" className="space-y-4 mt-8">
               <h2 className="text-2xl font-bold">Next Steps</h2>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-2 w-[583px]">
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader>
                     <CardTitle className="text-lg">Quick Start Guide</CardTitle>

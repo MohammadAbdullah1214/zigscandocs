@@ -167,11 +167,11 @@ export function ApiPlaygroundModal({
                 </div>
 
                 
-                  <ApiCodeExample
+                  {/* <ApiCodeExample
                     endpoint={endpoint}
                     parameters={parameters}
                     authKey={authKey}
-                  />
+                  /> */}
               
               </div>
             )}
