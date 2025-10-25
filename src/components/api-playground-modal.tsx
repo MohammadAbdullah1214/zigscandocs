@@ -118,7 +118,7 @@ export function ApiPlaygroundModal({
               </label>
               <div className="flex items-center gap-2 bg-muted p-3 rounded-lg">
                 <Badge variant="outline">{endpoint.method}</Badge>
-                <code className="text-sm flex-1 font-mono">
+                <code className="text-sm flex-1 font-mono overflow-hidden">
                   {buildEndpointPath()}
                 </code>
               </div>
@@ -166,13 +166,11 @@ export function ApiPlaygroundModal({
                   ))}
                 </div>
 
-                
-                  {/* <ApiCodeExample
+                {/* <ApiCodeExample
                     endpoint={endpoint}
                     parameters={parameters}
                     authKey={authKey}
                   /> */}
-              
               </div>
             )}
 

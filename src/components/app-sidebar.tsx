@@ -31,15 +31,15 @@ const guideNavigation = [
     items: [
       {
         name: "What is ZIGScan?",
-        url: "/guide/getting-started#whatiszigscan",
+        url: "/guide/getting-started",
       },
       {
         name: "Status",
-        url: "/guide/getting-started#status",
+        url: "/guide/getting-started",
       },
       {
         name: "Who should use ZIGScan?",
-        url: "/guide/getting-started#audience",
+        url: "/guide/getting-started",
       },
     ],
   },

@@ -1,3 +1,5 @@
+import { TvMinimal } from "lucide-react"
+
 // API Configuration for ZigScan API Documentation
 export const API_CATEGORIES = {
   ping: {
@@ -304,6 +306,32 @@ export const API_CATEGORIES = {
       },
     ],
   },
+  networks:{
+    title: "Networks",
+    icon: "Globe",
+    endpoints:[
+      {
+          name: "Network Overview",
+          method: "GET",
+          path: "/api/v2/network/overview",
+          description: "Overview of the network",
+          parameters: [],
+      }
+    ],
+    },
+  tvl:{
+    title: "TVL",
+    icon: "Lock",
+    endpoints:[
+      {
+          name: "TVL",
+          method: "GET",
+          path: "/api/v2/tvl",
+          description: "Total Value Locked",
+          parameters: [],
+      }
+    ],
+    }
 }
 
 export type ApiCategory = keyof typeof API_CATEGORIES
