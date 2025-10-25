@@ -43,7 +43,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   return (
     <>
       {/* 🖥️ Desktop / Large screens */}
-      <nav className="hidden lg:block fixed right-50 top-36 w-56 border-l border-[#f778a788] pl-5">
+      <nav className="hidden lg:block fixed right-50 top-33 w-56 border-l border-[#f778a788] pl-5">
         <div className="space-y-2">
           <div className="relative mb-3">
             <Text className="absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[hsl(338,89%,72%)] opacity-80" />
