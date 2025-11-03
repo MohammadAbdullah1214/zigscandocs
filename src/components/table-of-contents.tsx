@@ -13,6 +13,7 @@ interface TOCItem {
 
 interface TableOfContentsProps {
   items: TOCItem[]
+  className: {}
 }
 
 export function TableOfContents({ items }: TableOfContentsProps) {
@@ -46,8 +47,8 @@ export function TableOfContents({ items }: TableOfContentsProps) {
       <nav className="hidden lg:block fixed right-50 top-24 w-56">
         <div className="space-y-2">
           <div className="relative mb-3">
-            <Text className="absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary opacity-80" />
-            <h3 className="text-sm font-semibold text-foreground pl-2">On this page</h3>
+            {/* <Text className="absolute top-1/2 -translate-y-1/2 h-4 w-4 text-primary opacity-80" />
+            <h3 className="text-sm font-semibold text-foreground">On this page</h3> */}
           </div>
           <ul className="space-y-2">
             {items.map(({ id, label, level }) => (
@@ -57,7 +58,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
                   className={`text-sm transition-all duration-200 hover:text-primary ${
                     activeId === id
                       ? "text-primary dark:text-primary font-medium"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground" 
                   }`}
                 >
                   {label}

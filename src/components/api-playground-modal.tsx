@@ -91,7 +91,7 @@ export function ApiPlaygroundModal({ open, onOpenChange, endpoint, category }: A
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100">
+            <span className="px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
               {endpoint.method}
             </span>
             {endpoint.name}
@@ -104,7 +104,7 @@ export function ApiPlaygroundModal({ open, onOpenChange, endpoint, category }: A
             <div>
               <label className="text-sm font-semibold mb-2 block">Endpoint</label>
               <div className="flex items-center gap-2 bg-muted p-3 rounded-lg">
-                <span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100">
+                <span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
                   {endpoint.method}
                 </span>
                 <code className="text-sm flex-1 font-mono overflow-hidden">{buildEndpointPath()}</code>

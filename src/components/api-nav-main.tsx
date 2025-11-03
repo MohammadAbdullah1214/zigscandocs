@@ -30,11 +30,12 @@ export function ApiNavMain() {
       newSet.add(key)
     }
     setOpenCategories(newSet)
+    localStorage.setItem("openCategories", JSON.stringify(Array.from(newSet)))
   }
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>API Endpoints</SidebarGroupLabel>
+      {/* <SidebarGroupLabel>API Endpoints</SidebarGroupLabel> */}
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const isOpen = openCategories.has(key)
@@ -45,10 +46,10 @@ export function ApiNavMain() {
                 <SidebarMenuButton
                   onClick={() => toggleCategory(key)}
                   tooltip={category.title}
-                  className="cursor-pointer"
+                  className="cursor-pointer py-5 text-muted-foreground"
                 >
                   <span>{category.title}</span>
-                  <ChevronRight className={`ml-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
+                  <ChevronRight className={`mr-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
@@ -59,9 +60,10 @@ export function ApiNavMain() {
 
                     return (
                       <SidebarMenuSubItem key={endpoint.path}>
-                        <SidebarMenuSubButton asChild className={isActive ? "text-primary" : ""}>
+                        <SidebarMenuSubButton asChild 
+                          className={`py-5 isActive ? "text-primary" : ""`}>
                           <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
-                            <span className="px-2 py-1 rounded-full text-[9px] font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100">
+                            <span className="px-2 py-1 rounded-full text-[9px] font-semibold bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
                               {endpoint.method}
                             </span>
                             <span className="ml-2 truncate text-sm">{endpoint.name}</span>

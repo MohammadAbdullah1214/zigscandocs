@@ -41,6 +41,7 @@ export function ApiTester({ endpoint, category }: ApiTesterProps) {
               <CardTitle className="flex items-center gap-2">
                 <Badge
                   variant={endpoint.method === "GET" ? "default" : "secondary"}
+                  className="bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100"
                 >
                   {endpoint.method}
                 </Badge>

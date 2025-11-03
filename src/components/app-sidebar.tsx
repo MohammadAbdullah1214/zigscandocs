@@ -68,9 +68,9 @@ const guideNavigation = [
 ]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [showApiNav, setShowApiNav] = useState(false)
-  const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(new Set(["Overview"]))
   const pathname = usePathname()
+  const [showApiNav, setShowApiNav] = useState(true)
+  const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     if (pathname.includes("/api-docs")) {
@@ -89,11 +89,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
 
   return (
-    <Sidebar className="mt-9" collapsible="icon" {...props}>
+    <Sidebar className="mt-10" collapsible="icon" {...props}>
       <SidebarHeader>{/* <TeamSwitcher /> */}</SidebarHeader>
-      <SidebarContent className="mt-12">
+      <SidebarContent className="mt-10">
         <SidebarGroup>
-          <SidebarGroupLabel>Documentation</SidebarGroupLabel>
+          {/* <SidebarGroupLabel>Documentation</SidebarGroupLabel> */}
           <SidebarMenu>
             {guideNavigation.map((item) => {
               if (item.items) {
@@ -104,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer"
+                        className="cursor-pointer py-2 mb-2"
                       >
                         <span>{item.title}</span>
                         <ChevronRight
@@ -116,7 +116,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {isOpen && (
                       <SidebarMenuSub>
                         {item.items.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.name}>
+                          <SidebarMenuSubItem key={subItem.name} className="mb-2">
                             <SidebarMenuSubButton asChild>
                               <Link href={subItem.url}>
                                 <span>{subItem.name}</span>
@@ -130,15 +130,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 )
               }
 
-              if (item.title === "Endpoint Overview") {
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton tooltip={item.title} onClick={() => setShowApiNav(!showApiNav)}>
-                      <span>{item.title}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )
-              }
+              // if (item.title === "Endpoint Overview") {
+              //   return (
+              //     <SidebarMenuItem key={item.title}>
+              //       <SidebarMenuButton tooltip={item.title} onClick={() => setShowApiNav(!showApiNav)}>
+              //         <span>{item.title}</span>
+              //       </SidebarMenuButton>
+              //     </SidebarMenuItem>
+              //   )
+              // }
 
               return (
                 <SidebarMenuItem key={item.title}>

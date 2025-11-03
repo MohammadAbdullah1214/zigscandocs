@@ -1,5 +1,5 @@
-import { Navbar } from "@/components/navbar"
-import { AppSidebar } from "@/components/app-sidebar"
+import { Navbar } from "@/components/navbar";
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,22 +7,32 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle2, AlertCircle, Users } from "lucide-react"
-import { TableOfContents } from "@/components/table-of-contents"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle2, AlertCircle, Users } from "lucide-react";
+import { TableOfContents } from "@/components/table-of-contents";
 
 export default function GettingStartedPage() {
   const tocItems = [
-    { id: "overview", label: "Overview", level: 1 },
+    { id: "overview", label: "Overview", level: 2 },
     { id: "whatiszigscan", label: "What is ZIGScan?", level: 2 },
     { id: "status", label: "Status", level: 2 },
     { id: "audience", label: "Who should use ZIGScan?", level: 2 },
     { id: "next-steps", label: "Next Steps", level: 2 },
-  ]
+  ];
 
   return (
     <>
@@ -31,9 +41,12 @@ export default function GettingStartedPage() {
         <AppSidebar />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 px-4">
+            <div className="flex items-center gap-2 px-4 mt-9">
               <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+              <Separator
+                orientation="vertical"
+                className="mr-2 data-[orientation=vertical]:h-4"
+              />
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
@@ -48,17 +61,22 @@ export default function GettingStartedPage() {
             </div>
           </header>
 
-          <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
+          <div className="flex flex-1 flex-col gap-6 p-4 pt-5">
             {/* Hero Section */}
             <div className="space-y-2">
-              <h1 id="overview" className="text-4xl font-bold tracking-tight">
+              <h1 id="overview" className="text-3xl font-bold tracking-tight">
                 Overview
               </h1>
-              <p className="text-lg text-muted-foreground">Get started with ZIGScan and understand the ecosystem</p>
+              <p className="text-md text-muted-foreground">
+                Get started with ZIGScan and understand the ecosystem
+              </p>
             </div>
 
             {/* What is ZIGScan */}
-            <Card id="whatiszigscan" className="border-l-4 border-l-blue-500 w-[685px]">
+            <Card
+              id="whatiszigscan"
+              className="border-l-4 border-l-blue-500 dark:border-l-4 w-[685px]"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-blue-500" />
@@ -67,8 +85,10 @@ export default function GettingStartedPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-base leading-relaxed">
-                  ZIGScan is the ecosystem's dedicated block explorer of ZIGChain. It provides access and visibility
-                  into the ZIGChain's data, allowing anyone to explore and interact with blockchain information.
+                  ZIGScan is the ecosystem's dedicated block explorer of
+                  ZIGChain. It provides access and visibility into the
+                  ZIGChain's data, allowing anyone to explore and interact with
+                  blockchain information.
                 </p>
 
                 <div className="space-y-3">
@@ -76,23 +96,33 @@ export default function GettingStartedPage() {
                   <div className="grid gap-2 md:grid-cols-2">
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
-                      <span className="text-sm">View blocks and block details</span>
+                      <span className="text-sm">
+                        View blocks and block details
+                      </span>
                     </div>
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
-                      <span className="text-sm">Inspect transactions (status, sender, receiver, fees)</span>
+                      <span className="text-sm">
+                        Inspect transactions (status, sender, receiver, fees)
+                      </span>
                     </div>
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
-                      <span className="text-sm">Explore wallet balances and history</span>
+                      <span className="text-sm">
+                        Explore wallet balances and history
+                      </span>
                     </div>
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
-                      <span className="text-sm">Track token and asset details</span>
+                      <span className="text-sm">
+                        Track token and asset details
+                      </span>
                     </div>
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
-                      <span className="text-sm">Monitor validator statistics</span>
+                      <span className="text-sm">
+                        Monitor validator statistics
+                      </span>
                     </div>
                     <div className="flex gap-2">
                       <span className="text-blue-500 font-bold">•</span>
@@ -104,7 +134,10 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Status */}
-            <Card id="status" className="border-l-4 border-l-amber-500 w-[685px]">
+            <Card
+              id="status"
+              className="border-l-4 border-l-amber-500 w-[685px]"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-amber-500" />
@@ -121,7 +154,8 @@ export default function GettingStartedPage() {
                       <span className="font-semibold">Testnet</span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      ZIGScan is currently live on the testnet. You can start exploring and testing the platform.
+                      ZIGScan is currently live on the testnet. You can start
+                      exploring and testing the platform.
                     </p>
                   </div>
                   <div className="space-y-2">
@@ -130,7 +164,8 @@ export default function GettingStartedPage() {
                       <span className="font-semibold">Mainnet</span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Mainnet deployment is coming soon. Stay tuned for the official launch.
+                      Mainnet deployment is coming soon. Stay tuned for the
+                      official launch.
                     </p>
                   </div>
                 </div>
@@ -138,7 +173,10 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Who should use ZIGScan */}
-            <Card id="audience" className="border-l-4 border-l-purple-500 w-[685px]">
+            <Card
+              id="audience"
+              className="border-l-4 border-l-purple-500 w-[685px]"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-purple-500" />
@@ -227,7 +265,8 @@ export default function GettingStartedPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Get started with viewing blocks, transactions, wallets, and validators.
+                      Get started with viewing blocks, transactions, wallets,
+                      and validators.
                     </p>
                   </CardContent>
                 </Card>
@@ -239,7 +278,8 @@ export default function GettingStartedPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Explore our comprehensive API endpoints and integrate ZIGChain data into your applications.
+                      Explore our comprehensive API endpoints and integrate
+                      ZIGChain data into your applications.
                     </p>
                   </CardContent>
                 </Card>
@@ -247,9 +287,12 @@ export default function GettingStartedPage() {
             </div>
           </div>
 
-          <TableOfContents items={tocItems} />
+          <TableOfContents
+            items={tocItems}
+            className={tocItems[0] ? "text-white" : "text-muted-foreground"}
+          />
         </SidebarInset>
       </SidebarProvider>
     </>
-  )
+  );
 }
