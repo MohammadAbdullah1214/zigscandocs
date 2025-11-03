@@ -47,7 +47,7 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:text-primary hover:bg-muted border-1 border-transparent hover:border-primary hover:scale-105"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:text-primary hover:bg-muted border border-transparent hover:border-primary hover:scale-105"
                 >
                   {item.label}
                 </Link>
@@ -71,7 +71,7 @@ export function Navbar() {
             )}
 
             {/* Sign In Button */}
-            <Button variant="outline" size="sm" className="hidden sm:inline-flex bg-primary hover:border-primary">
+            <Button variant="outline" size="sm" className="hidden sm:inline-flex hover:border-primary">
               Get API Key
               <ArrowRight className="h-1 w-1" />
             </Button>

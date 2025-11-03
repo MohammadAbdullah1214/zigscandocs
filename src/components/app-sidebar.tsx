@@ -17,7 +17,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const guideNavigation = [
   {
@@ -70,6 +69,7 @@ const guideNavigation = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [showApiNav, setShowApiNav] = useState(false)
+  const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(new Set(["Overview"]))
   const pathname = usePathname()
 
   useEffect(() => {
@@ -77,6 +77,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       setShowApiNav(true)
     }
   }, [pathname])
+
+  const toggleGuideCategory = (title: string) => {
+    const newSet = new Set(openGuideCategories)
+    if (newSet.has(title)) {
+      newSet.delete(title)
+    } else {
+      newSet.add(title)
+    }
+    setOpenGuideCategories(newSet)
+  }
 
   return (
     <Sidebar className="mt-9" collapsible="icon" {...props}>
@@ -87,34 +97,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenu>
             {guideNavigation.map((item) => {
               if (item.items) {
+                const isOpen = openGuideCategories.has(item.title)
                 return (
-                  <Collapsible key={item.title} asChild className="group/collapsible">
+                  <div key={item.title}>
                     <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton tooltip={item.title}>
-                          <span>{item.title}</span>
-                          <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.items.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.name}>
-                              <SidebarMenuSubButton asChild>
-                                <Link href={subItem.url}>
-                                  <span>{subItem.name}</span>
-                                </Link>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
+                      <SidebarMenuButton
+                        onClick={() => toggleGuideCategory(item.title)}
+                        tooltip={item.title}
+                        className="cursor-pointer"
+                      >
+                        <span>{item.title}</span>
+                        <ChevronRight
+                          className={`ml-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}
+                        />
+                      </SidebarMenuButton>
                     </SidebarMenuItem>
-                  </Collapsible>
+
+                    {isOpen && (
+                      <SidebarMenuSub>
+                        {item.items.map((subItem) => (
+                          <SidebarMenuSubItem key={subItem.name}>
+                            <SidebarMenuSubButton asChild>
+                              <Link href={subItem.url}>
+                                <span>{subItem.name}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    )}
+                  </div>
                 )
               }
 
-              // Handle Endpoint Overview to toggle API nav
               if (item.title === "Endpoint Overview") {
                 return (
                   <SidebarMenuItem key={item.title}>
@@ -125,7 +140,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 )
               }
 
-              // Handle ZigScan API link
               return (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
