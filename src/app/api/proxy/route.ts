@@ -27,12 +27,14 @@ export async function GET(request: NextRequest) {
     // 🟢 Get auth header from client if provided
     const clientAuth = request.headers.get("authorization")
 
+    const apiKey = process.env.API_KEY || ""
+
     // Make the request to the actual API
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: clientAuth || `Bearer ${process.env.NEXT_PUBLIC_API_KEY || ""}`,
+        Authorization: clientAuth || (apiKey ? `Bearer ${apiKey}` : ""),
       },
     })
 
@@ -63,11 +65,13 @@ export async function POST(request: NextRequest) {
     // 🟢 Forward client Authorization header
     const clientAuth = request.headers.get("authorization")
 
+    const apiKey = process.env.API_KEY || ""
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: clientAuth || `Bearer ${process.env.NEXT_PUBLIC_API_KEY || ""}`,
+        Authorization: clientAuth || (apiKey ? `Bearer ${apiKey}` : ""),
       },
       body: JSON.stringify(body || {}),
     })

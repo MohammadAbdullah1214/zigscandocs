@@ -58,7 +58,7 @@ export default function GettingStartedPage() {
             </div>
 
             {/* What is ZIGScan */}
-            <Card id="whatiszigscan" className="border-l-4 border-l-blue-500 w-[580px]">
+            <Card id="whatiszigscan" className="border-l-4 border-l-blue-500 w-[685px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-blue-500" />
@@ -104,7 +104,7 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Status */}
-            <Card id="status" className="border-l-4 border-l-amber-500 w-[580px]">
+            <Card id="status" className="border-l-4 border-l-amber-500 w-[685px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-amber-500" />
@@ -138,7 +138,7 @@ export default function GettingStartedPage() {
             </Card>
 
             {/* Who should use ZIGScan */}
-            <Card id="audience" className="border-l-4 border-l-purple-500 w-[580px]">
+            <Card id="audience" className="border-l-4 border-l-purple-500 w-[685px]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-purple-500" />
@@ -219,7 +219,7 @@ export default function GettingStartedPage() {
             {/* Additional Resources */}
             <div id="next-steps" className="space-y-4 mt-8">
               <h2 className="text-2xl font-bold">Next Steps</h2>
-              <div className="grid gap-4 md:grid-cols-2 w-[583px]">
+              <div className="grid gap-4 md:grid-cols-2 w-[685px]">
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader>
                     <CardTitle className="text-lg">Quick Start Guide</CardTitle>

@@ -1,8 +1,8 @@
 "use client"
 
 import type * as React from "react"
-import { BookOpen, Frame, PieChart, TerminalSquareIcon, ChevronRight } from "lucide-react"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
+import { ChevronRight } from "lucide-react"
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 import { ApiNavMain } from "@/components/api-nav-main"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
@@ -23,11 +23,9 @@ const guideNavigation = [
   {
     title: "ZigScan API",
     url: "/guide",
-    icon: TerminalSquareIcon,
   },
   {
     title: "Overview",
-    icon: BookOpen,
     items: [
       {
         name: "What is ZIGScan?",
@@ -45,7 +43,6 @@ const guideNavigation = [
   },
   {
     title: "Quick Start Guide",
-    icon: Frame,
     items: [
       {
         name: "Viewing Blocks",
@@ -68,7 +65,6 @@ const guideNavigation = [
   {
     title: "Endpoint Overview",
     url: "#",
-    icon: PieChart,
   },
 ]
 
@@ -84,23 +80,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="mt-9" collapsible="icon" {...props}>
-      <SidebarHeader>
-        {/* <TeamSwitcher /> */}
-      </SidebarHeader>
+      <SidebarHeader>{/* <TeamSwitcher /> */}</SidebarHeader>
       <SidebarContent className="mt-12">
         <SidebarGroup>
           <SidebarGroupLabel>Documentation</SidebarGroupLabel>
           <SidebarMenu>
             {guideNavigation.map((item) => {
-              const IconComponent = item.icon
-
               if (item.items) {
                 return (
                   <Collapsible key={item.title} asChild className="group/collapsible">
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton tooltip={item.title}>
-                          <IconComponent className="h-4 w-4" />
                           <span>{item.title}</span>
                           <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                         </SidebarMenuButton>
@@ -128,7 +119,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton tooltip={item.title} onClick={() => setShowApiNav(!showApiNav)}>
-                      <IconComponent className="h-4 w-4" />
                       <span>{item.title}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -140,7 +130,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <Link href={item.url}>
-                      <IconComponent className="h-4 w-4" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>

@@ -29,7 +29,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
           }
         })
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { rootMargin: "-50% 0px -50% 0px" },
     )
 
     items.forEach(({ id }) => {
@@ -43,21 +43,21 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   return (
     <>
       {/* 🖥️ Desktop / Large screens */}
-      <nav className="hidden lg:block fixed right-50 top-33 w-56 border-l border-[#f778a788] pl-5">
+      <nav className="hidden lg:block fixed right-50 top-24 w-56">
         <div className="space-y-2">
           <div className="relative mb-3">
-            <Text className="absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[hsl(338,89%,72%)] opacity-80" />
-                <h3 className="text-sm font-semibold text-foreground pl-2">On this page</h3>
+            <Text className="absolute -left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary opacity-80" />
+            <h3 className="text-sm font-semibold text-foreground pl-2">On this page</h3>
           </div>
           <ul className="space-y-2">
             {items.map(({ id, label, level }) => (
               <li key={id} style={{ paddingLeft: `${(level - 1) * 16}px` }}>
                 <Link
                   href={`#${id}`}
-                  className={`text-sm transition-colors hover:text-foreground ${
+                  className={`text-sm transition-all duration-200 hover:text-primary ${
                     activeId === id
-                      ? "text-chart-3 dark:text-chart-3 font-medium"
-                      : "text-muted-foreground"
+                      ? "text-primary dark:text-primary font-medium"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {label}
@@ -87,17 +87,13 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             <h3 className="text-sm font-semibold text-foreground mb-3">On this page</h3>
             <ul className="space-y-2">
               {items.map(({ id, label, level }) => (
-                <li
-                  key={id}
-                  style={{ paddingLeft: `${(level - 1) * 14}px` }}
-                  onClick={() => setIsMobileOpen(false)}
-                >
+                <li key={id} style={{ paddingLeft: `${(level - 1) * 14}px` }} onClick={() => setIsMobileOpen(false)}>
                   <Link
                     href={`#${id}`}
-                    className={`text-sm transition-colors hover:text-foreground ${
+                    className={`text-sm transition-all duration-200 hover:text-primary ${
                       activeId === id
-                        ? "text-chart-3 dark:text-chart-3 font-medium"
-                        : "text-muted-foreground"
+                        ? "text-primary dark:text-primary font-medium"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {label}

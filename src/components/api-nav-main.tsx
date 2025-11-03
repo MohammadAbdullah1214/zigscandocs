@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, type LucideIcon } from "lucide-react"
-import * as LucideIcons from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
@@ -16,31 +15,29 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import { API_CATEGORIES, type ApiCategory } from "@/lib/api-config"
+import { API_CATEGORIES } from "@/lib/api-config"
 import Link from "next/link"
 
 export function ApiNavMain() {
-  const [activeCategory, setActiveCategory] = React.useState<ApiCategory | null>("ping")
+  const [openCategory, setOpenCategory] = React.useState<string | null>("ping")
   const searchParams = useSearchParams()
   const activeEndpoint = searchParams.get("endpoint")
+
+  const handleTriggerClick = (e: React.MouseEvent, key: string) => {
+    e.preventDefault()
+    setOpenCategory(openCategory === key ? null : key)
+  }
 
   return (
     <SidebarGroup>
       <SidebarGroupLabel>API Endpoints</SidebarGroupLabel>
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
-          const IconComponent = (LucideIcons as unknown as Record<string, LucideIcon>)[category.icon] ?? LucideIcons.Code
-
-
           return (
-            <Collapsible key={key} asChild defaultOpen={activeCategory === key} className="group/collapsible">
+            <Collapsible key={key} asChild open={openCategory === key} className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton
-                    tooltip={category.title}
-                    onClick={() => setActiveCategory(activeCategory === key ? null : (key as ApiCategory))}
-                  >
-                    <IconComponent className="h-4 w-4" />
+                  <SidebarMenuButton tooltip={category.title} onClick={(e) => handleTriggerClick(e, key)}>
                     <span>{category.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
@@ -48,18 +45,20 @@ export function ApiNavMain() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {category.endpoints.map((endpoint) => {
-                    const isActive = activeEndpoint === endpoint.path
-                    
-                    return(
-                      <SidebarMenuSubItem key={endpoint.path}>
-                        <SidebarMenuSubButton asChild className={isActive ? "rounded-full bg-blue-200 text-blue-900" : ""}>
-                          <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
-                            <span className="text-xs font-mono">{endpoint.method}</span>
-                            <span className="ml-2 truncate text-sm">{endpoint.name}</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    )
+                      const isActive = activeEndpoint === endpoint.path
+
+                      return (
+                        <SidebarMenuSubItem key={endpoint.path}>
+                          <SidebarMenuSubButton asChild className={isActive ? "text-primary" : ""}>
+                            <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
+                              <span className="px-2 py-1 rounded-full text-[9px] font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100">
+                                {endpoint.method}
+                              </span>
+                              <span className="ml-2 truncate text-sm">{endpoint.name}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      )
                     })}
                   </SidebarMenuSub>
                 </CollapsibleContent>

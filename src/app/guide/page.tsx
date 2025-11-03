@@ -41,7 +41,7 @@ export default function GuidePage() {
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>Quick Start Guide</BreadcrumbPage>
+                    <BreadcrumbPage className="text-font-sans">Quick Start Guide</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
@@ -60,7 +60,7 @@ export default function GuidePage() {
             {/* Quick Start Cards */}
             <div className="grid gap-6 grid-cols-1 items-start justify-start w-[685px]">
               {/* Viewing Blocks */}
-              <Card id="viewing-blocks" className="hover:shadow-lg transition-shadow">
+              <Card id="viewing-blocks" className="hover:shadow-lg transition-shadow w-[685px]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Badge variant="default">1</Badge>

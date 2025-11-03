@@ -15,19 +15,6 @@ export const API_CATEGORIES = {
       },
     ],
   },
-  key: {
-    title: "Key",
-    icon: "Key",
-    endpoints: [
-      {
-        name: "Key",
-        method: "GET",
-        path: "/api/v2/stats",
-        description: "Get API statistics",
-        parameters: [],
-      },
-    ],
-  },
   transactions: {
     title: "Transactions",
     icon: "ArrowRightLeft",
@@ -160,40 +147,6 @@ export const API_CATEGORIES = {
         path: "/api/v2/account/transactions/{address}",
         description: "Get transactions for an account",
         parameters: [{ name: "address", type: "string", required: true, description: "Account address" }],
-      },
-    ],
-  },
-  admin: {
-    title: "Admin",
-    icon: "Shield",
-    endpoints: [
-      {
-        name: "List Users",
-        method: "GET",
-        path: "/api/v2/admin/users",
-        description: "Get list of admin users",
-        parameters: [],
-      },
-      {
-        name: "System Stats",
-        method: "GET",
-        path: "/api/v2/admin/system-stats",
-        description: "Get system statistics",
-        parameters: [],
-      },
-      {
-        name: "Execute Query",
-        method: "POST",
-        path: "/api/v2/admin/execute-query",
-        description: "Execute a custom query",
-        parameters: [{ name: "query", type: "string", required: true, description: "Query to execute" }],
-      },
-      {
-        name: "Audit Log",
-        method: "GET",
-        path: "/api/v2/admin/audit-log",
-        description: "Get audit log",
-        parameters: [],
       },
     ],
   },
