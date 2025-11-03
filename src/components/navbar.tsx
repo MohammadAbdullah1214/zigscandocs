@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <img className="w-30 h-auto" src="/assets/zigscanlogo.webp" alt="ZigScan Logo" />
+          <img className="w-34 h-auto" src="/assets/zigscanlogo.webp" alt="ZigScan Logo" />
 
           {/* Search Bar (Center) */}
           <div className="hidden flex-1 items-center justify-center px-4 md:flex">

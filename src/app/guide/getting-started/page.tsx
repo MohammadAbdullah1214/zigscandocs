@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/navbar";
+import { Suspense } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -38,7 +39,13 @@ export default function GettingStartedPage() {
     <>
       <Navbar />
       <SidebarProvider>
-        <AppSidebar />
+        <Suspense
+          fallback={
+            <div className="p-4 text-muted-foreground">Loading sidebar...</div>
+          }
+        >
+          <AppSidebar />
+        </Suspense>
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4 mt-9">
