@@ -1,12 +1,17 @@
-"use client"
+"use client";
 
-import type * as React from "react"
-import { ChevronRight } from "lucide-react"
-import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
-import { ApiNavMain } from "@/components/api-nav-main"
-import { useState, useEffect } from "react"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
+import type * as React from "react";
+import { ChevronRight } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import { ApiNavMain } from "@/components/api-nav-main";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,7 +21,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const guideNavigation = [
   {
@@ -65,28 +70,30 @@ const guideNavigation = [
     title: "Endpoint Overview",
     url: "#",
   },
-]
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname()
-  const [showApiNav, setShowApiNav] = useState(true)
-  const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(new Set())
+  const pathname = usePathname();
+  const [showApiNav, setShowApiNav] = useState(true);
+  const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     if (pathname.includes("/api-docs")) {
-      setShowApiNav(true)
+      setShowApiNav(true);
     }
-  }, [pathname])
+  }, [pathname]);
 
   const toggleGuideCategory = (title: string) => {
-    const newSet = new Set(openGuideCategories)
+    const newSet = new Set(openGuideCategories);
     if (newSet.has(title)) {
-      newSet.delete(title)
+      newSet.delete(title);
     } else {
-      newSet.add(title)
+      newSet.add(title);
     }
-    setOpenGuideCategories(newSet)
-  }
+    setOpenGuideCategories(newSet);
+  };
 
   return (
     <Sidebar className="mt-10" collapsible="icon" {...props}>
@@ -97,18 +104,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenu>
             {guideNavigation.map((item) => {
               if (item.items) {
-                const isOpen = openGuideCategories.has(item.title)
+                const isOpen = openGuideCategories.has(item.title);
                 return (
                   <div key={item.title}>
                     <SidebarMenuItem>
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer py-2 mb-2"
+                        className="cursor-pointer py-3 mb-2 text-muted-foreground"
                       >
                         <span>{item.title}</span>
                         <ChevronRight
-                          className={`ml-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}
+                          className={`mr-auto transition-transform duration-200 ${
+                            isOpen ? "rotate-90" : ""
+                          }`}
                         />
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -116,7 +125,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {isOpen && (
                       <SidebarMenuSub>
                         {item.items.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.name} className="mb-2">
+                          <SidebarMenuSubItem
+                            key={subItem.name}
+                            className="mb-2"
+                          >
                             <SidebarMenuSubButton asChild>
                               <Link href={subItem.url}>
                                 <span>{subItem.name}</span>
@@ -127,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </SidebarMenuSub>
                     )}
                   </div>
-                )
+                );
               }
 
               // if (item.title === "Endpoint Overview") {
@@ -142,20 +154,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
               return (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
-                    <Link href={item.url}>
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
+                  <span className="text-[0.9rem] pl-2 font-semibold">
+                    {item.title}
+                  </span>
                 </SidebarMenuItem>
-              )
+              );
             })}
           </SidebarMenu>
         </SidebarGroup>
-
         {showApiNav && <ApiNavMain />}
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
