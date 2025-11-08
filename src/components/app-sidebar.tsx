@@ -10,8 +10,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ApiNavMain } from "@/components/api-nav-main";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -74,16 +73,19 @@ const guideNavigation = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const router = useRouter();
   const [showApiNav, setShowApiNav] = useState(true);
   const [openGuideCategories, setOpenGuideCategories] = useState<Set<string>>(
     new Set()
   );
 
+  // Persist open categories across navigations
   useEffect(() => {
-    if (pathname.includes("/api-docs")) {
-      setShowApiNav(true);
+    const savedCategories = localStorage.getItem("guideOpenCategories");
+    if (savedCategories) {
+      setOpenGuideCategories(new Set(JSON.parse(savedCategories)));
     }
-  }, [pathname]);
+  }, []);
 
   const toggleGuideCategory = (title: string) => {
     const newSet = new Set(openGuideCategories);
@@ -93,13 +95,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       newSet.add(title);
     }
     setOpenGuideCategories(newSet);
+    localStorage.setItem(
+      "guideOpenCategories",
+      JSON.stringify(Array.from(newSet))
+    );
+  };
+
+  // Use shallow routing to prevent full page refresh
+  const handleNavigation = (url: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(url);
   };
 
   return (
     <Sidebar className="mt-10" collapsible="icon" {...props}>
       <SidebarHeader>{/* <TeamSwitcher /> */}</SidebarHeader>
       <SidebarContent className="mt-10">
-        <SidebarGroup>
+        <SidebarGroup className="mb-1 mt-3">
           {/* <SidebarGroupLabel>Documentation</SidebarGroupLabel> */}
           <SidebarMenu>
             {guideNavigation.map((item) => {
@@ -111,7 +124,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer py-3 mb-2 text-muted-foreground"
+                        className="cursor-pointer py-5 mb-2 text-muted-foreground"
                       >
                         <span>{item.title}</span>
                         <ChevronRight
@@ -127,12 +140,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         {item.items.map((subItem) => (
                           <SidebarMenuSubItem
                             key={subItem.name}
-                            className="mb-2"
+                            className="mb-1 py-1"
                           >
                             <SidebarMenuSubButton asChild>
-                              <Link href={subItem.url}>
+                              <a
+                                href={subItem.url}
+                                onMouseDown={(e) => e.stopPropagation()}
+                                onClick={(e) => handleNavigation(subItem.url, e)}
+                              >
                                 <span>{subItem.name}</span>
-                              </Link>
+                              </a>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
@@ -141,16 +158,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </div>
                 );
               }
-
-              // if (item.title === "Endpoint Overview") {
-              //   return (
-              //     <SidebarMenuItem key={item.title}>
-              //       <SidebarMenuButton tooltip={item.title} onClick={() => setShowApiNav(!showApiNav)}>
-              //         <span>{item.title}</span>
-              //       </SidebarMenuButton>
-              //     </SidebarMenuItem>
-              //   )
-              // }
 
               return (
                 <SidebarMenuItem key={item.title}>

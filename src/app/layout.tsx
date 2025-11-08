@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} ${poppinsFont.variable} antialiased bg-background text-foreground`}
       >
-        <div className="mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>

@@ -155,7 +155,7 @@ export default function GettingStartedPage() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Badge variant="default" className="bg-green-600">
+                      <Badge variant="default" className="bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
                         Live
                       </Badge>
                       <span className="font-semibold">Testnet</span>

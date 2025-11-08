@@ -1,32 +1,37 @@
-"use client"
+"use client";
 
-import { Search, Menu, X, Sun, Moon, ArrowRight } from "lucide-react"
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Search, Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Blur from "@/components/blur";
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   // Avoid hydration mismatch
-  useEffect(() => setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
   const navItems = [
     { label: "API Reference", href: "#" },
     { label: "Guides", href: "#" },
-  ]
+  ];
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <img className="w-34 h-auto" src="/assets/zigscanlogo.webp" alt="ZigScan Logo" />
-
+          <Blur />
+          <img
+            className="w-34 h-auto"
+            src="/assets/zigscanlogo.webp"
+            alt="ZigScan Logo"
+          />
           {/* Search Bar (Center) */}
           <div className="hidden flex-1 items-center justify-center px-4 md:flex">
             <div className="relative w-full max-w-md">
@@ -71,14 +76,27 @@ export function Navbar() {
             )}
 
             {/* Sign In Button */}
-            <Button variant="outline" size="sm" className="hidden sm:inline-flex hover:border-primary">
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden sm:inline-flex hover:border-primary"
+            >
               Get API Key
               <ArrowRight className="h-1 w-1" />
             </Button>
 
             {/* Mobile Menu Toggle */}
-            <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
@@ -111,5 +129,5 @@ export function Navbar() {
         )}
       </div>
     </nav>
-  )
+  );
 }

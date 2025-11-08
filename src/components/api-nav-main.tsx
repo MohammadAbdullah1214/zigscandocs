@@ -1,6 +1,6 @@
 "use client"
 import { ChevronRight } from "lucide-react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useState } from "react"
 
 import {
@@ -14,13 +14,27 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import { API_CATEGORIES } from "@/lib/api-config"
-import Link from "next/link"
+// import Link from "next/link"
+// import { url } from "inspector"
 
 export function ApiNavMain() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const activeEndpoint = searchParams.get("endpoint")
 
-  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set(["ping"]))
+  const [openCategories, setOpenCategories] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('apiOpenCategories')
+      return saved ? new Set(JSON.parse(saved)) : new Set(['ping'])
+    }
+    return new Set(['ping'])
+  })
+
+  const handleNavigation = (href: string, e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    router.push(href)
+  }
 
   const toggleCategory = (key: string) => {
     const newSet = new Set(openCategories)
@@ -34,8 +48,7 @@ export function ApiNavMain() {
   }
 
   return (
-    <SidebarGroup>
-      {/* <SidebarGroupLabel>API Endpoints</SidebarGroupLabel> */}
+    <SidebarGroup className="-mt-3">
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const isOpen = openCategories.has(key)
@@ -57,17 +70,22 @@ export function ApiNavMain() {
                 <SidebarMenuSub>
                   {category.endpoints.map((endpoint) => {
                     const isActive = activeEndpoint === endpoint.path
+                    const href = `/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`
 
                     return (
                       <SidebarMenuSubItem key={endpoint.path}>
                         <SidebarMenuSubButton asChild 
-                          className={`py-5 isActive ? "text-primary" : ""`}>
-                          <Link href={`/api-docs/${key}?endpoint=${encodeURIComponent(endpoint.path)}`}>
-                            <span className="px-2 py-1 rounded-full text-[9px] font-semibold bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
+                          className={`py-4 ${isActive ? "text-primary" : ""}`}>
+                          <a
+                            href={href}
+                            onMouseDown={(e) => e.stopPropagation()}
+                            onClick={(e) => handleNavigation(href, e)}
+                          >
+                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-green-100 text-green-700 dark:bg-green-500 dark:text-green-100">
                               {endpoint.method}
                             </span>
                             <span className="ml-2 truncate text-sm">{endpoint.name}</span>
-                          </Link>
+                          </a>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     )
