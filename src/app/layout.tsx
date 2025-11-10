@@ -2,6 +2,10 @@ import type React from "react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter, Poppins } from "next/font/google";
+import { Navbar } from "@/components/navbar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Suspense } from "react";
 import "./globals.css";
 
 const interFont = Inter({
@@ -33,7 +37,19 @@ export default function RootLayout({
       >
         <div className="relative mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
+            <Navbar />
+            <SidebarProvider>
+              <Suspense
+                fallback={
+                  <div className="p-4 text-muted-foreground">
+                    Loading sidebar...
+                  </div>
+                }
+              >
+                <AppSidebar />
+                {children}
+              </Suspense>
+            </SidebarProvider>
           </ThemeProvider>
         </div>
       </body>

@@ -65,10 +65,10 @@ const guideNavigation = [
       },
     ],
   },
-  {
-    title: "Endpoint Overview",
-    url: "#",
-  },
+  // {
+  //   title: "Endpoint Overview",
+  //   url: "#",
+  // },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

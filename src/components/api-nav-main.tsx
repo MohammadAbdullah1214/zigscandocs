@@ -1,7 +1,7 @@
 "use client"
 import { ChevronRight } from "lucide-react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import {
   SidebarGroup,
@@ -22,29 +22,29 @@ export function ApiNavMain() {
   const searchParams = useSearchParams()
   const activeEndpoint = searchParams.get("endpoint")
 
-  const [openCategories, setOpenCategories] = useState<Set<string>>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('apiOpenCategories')
-      return saved ? new Set(JSON.parse(saved)) : new Set(['ping'])
+  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set(['ping']))
+
+  // Load saved state from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('openCategories')
+    if (saved) {
+      setOpenCategories(new Set(JSON.parse(saved)))
     }
-    return new Set(['ping'])
-  })
+  }, [])
 
   const handleNavigation = (href: string, e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    router.push(href)
+    router.push(href, { scroll: false })
   }
 
   const toggleCategory = (key: string) => {
-    const newSet = new Set(openCategories)
-    if (newSet.has(key)) {
-      newSet.delete(key)
-    } else {
+    const newSet = new Set<string>()
+    if (!openCategories.has(key)) {
       newSet.add(key)
     }
     setOpenCategories(newSet)
-    localStorage.setItem("openCategories", JSON.stringify(Array.from(newSet)))
+    localStorage.setItem('openCategories', JSON.stringify(Array.from(newSet)))
   }
 
   return (
@@ -52,7 +52,6 @@ export function ApiNavMain() {
       <SidebarMenu>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const isOpen = openCategories.has(key)
-
           return (
             <div key={key}>
               <SidebarMenuItem>
