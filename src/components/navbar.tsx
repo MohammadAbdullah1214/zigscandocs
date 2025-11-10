@@ -23,7 +23,7 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1400px] md:px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Blur />
@@ -66,6 +66,7 @@ export function Navbar() {
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
+                className="cursor-pointer"
               >
                 {theme === "dark" ? (
                   <Sun className="h-5 w-5 text-foreground" />
@@ -79,7 +80,7 @@ export function Navbar() {
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:inline-flex hover:border-primary"
+              className="hidden sm:inline-flex hover:border-primary cursor-pointer"
             >
               Get API Key
               <ArrowRight className="h-1 w-1" />

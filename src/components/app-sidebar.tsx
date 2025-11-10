@@ -116,13 +116,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 const isOpen = openGuideCategories.has(item.title);
                 
                 return (
-                  <>
                   <div key={item.title}>
                     <SidebarMenuItem>
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer py-5 text-muted-foreground"  
+                        className="cursor-pointer py-5 mb-2 text-muted-foreground"  
                       >
                         <span>{item.title}</span>
                         <ChevronRight
@@ -154,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </SidebarMenuSub>
                     )}
                   </div>
-                  </>
+                  
                 );
               }
 
