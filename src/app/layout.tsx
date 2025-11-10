@@ -33,22 +33,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interFont.variable} ${poppinsFont.variable} antialiased bg-background text-foreground`}
+        className={`${interFont.variable} ${poppinsFont.variable} subpixel-antialiased bg-background text-foreground`}
       >
         <div className="relative mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
             <SidebarProvider>
-              <Suspense
-                fallback={
-                  <div className="p-4 text-muted-foreground">
-                    Loading sidebar...
-                  </div>
-                }
-              >
+              <Suspense>
                 <AppSidebar />
+                </Suspense>
                 {children}
-              </Suspense>
             </SidebarProvider>
           </ThemeProvider>
         </div>

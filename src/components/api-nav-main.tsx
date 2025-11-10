@@ -50,6 +50,7 @@ export function ApiNavMain() {
   return (
     <SidebarGroup className="-mt-3">
       <SidebarMenu>
+        <h6 className="mb-3 mt-5">Endpoint Overview</h6>
         {Object.entries(API_CATEGORIES).map(([key, category]) => {
           const isOpen = openCategories.has(key)
           return (

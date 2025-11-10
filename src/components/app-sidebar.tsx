@@ -24,10 +24,6 @@ import {
 
 const guideNavigation = [
   {
-    title: "ZigScan API",
-    url: "/guide",
-  },
-  {
     title: "Overview",
     items: [
       {
@@ -79,13 +75,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     new Set()
   );
 
-  // Persist open categories across navigations
-  useEffect(() => {
-    const savedCategories = localStorage.getItem("guideOpenCategories");
-    if (savedCategories) {
-      setOpenGuideCategories(new Set(JSON.parse(savedCategories)));
-    }
-  }, []);
+  // // Persist open categories across navigations
+  // useEffect(() => {
+  //   const savedCategories = localStorage.getItem("guideOpenCategories");
+  //   if (savedCategories) {
+  //     setOpenGuideCategories(new Set(JSON.parse(savedCategories)));
+  //   }
+  // }, []);
 
   const toggleGuideCategory = (title: string) => {
     const newSet = new Set(openGuideCategories);
@@ -110,21 +106,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="mt-10" collapsible="icon" {...props}>
-      <SidebarHeader>{/* <TeamSwitcher /> */}</SidebarHeader>
       <SidebarContent className="mt-10">
         <SidebarGroup className="mb-1 mt-3">
+          <h6 className="mb-3 mt-3">ZigScan API</h6>
           {/* <SidebarGroupLabel>Documentation</SidebarGroupLabel> */}
           <SidebarMenu>
             {guideNavigation.map((item) => {
               if (item.items) {
                 const isOpen = openGuideCategories.has(item.title);
+                
                 return (
+                  <>
                   <div key={item.title}>
                     <SidebarMenuItem>
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer py-5 mb-2 text-muted-foreground"
+                        className="cursor-pointer py-5 text-muted-foreground"  
                       >
                         <span>{item.title}</span>
                         <ChevronRight
@@ -156,6 +154,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </SidebarMenuSub>
                     )}
                   </div>
+                  </>
                 );
               }
 
