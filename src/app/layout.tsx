@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { Inter, Poppins } from "next/font/google";
 import { Navbar } from "@/components/navbar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { Footer } from "@/components/footer";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Suspense } from "react";
 import "./globals.css";
@@ -35,17 +36,20 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} ${poppinsFont.variable} subpixel-antialiased bg-background text-foreground`}
       >
-        <div className="relative mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8">
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="relative mx-auto max-w-[1440px] px-2 sm:px-4 md:px-6 lg:px-8 min-h-screen flex flex-col">
             <Navbar />
             <SidebarProvider>
               <Suspense>
                 <AppSidebar />
-                </Suspense>
+              </Suspense>
+              <main className="flex-1">
                 {children}
+              </main>
             </SidebarProvider>
-          </ThemeProvider>
-        </div>
+            {/* <Footer /> */}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

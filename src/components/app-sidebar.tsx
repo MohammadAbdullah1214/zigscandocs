@@ -121,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         onClick={() => toggleGuideCategory(item.title)}
                         tooltip={item.title}
-                        className="cursor-pointer py-5 mb-2 text-muted-foreground"  
+                        className="cursor-pointer py-5 text-muted-foreground"  
                       >
                         <span>{item.title}</span>
                         <ChevronRight

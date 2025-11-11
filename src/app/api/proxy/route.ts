@@ -1,4 +1,10 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
+
+function joinEndpoint(base: string, endpoint: string) {
+  if (!base.endsWith("/") && !endpoint.startsWith("/")) return `${base}/${endpoint}`
+  if (base.endsWith("/") && endpoint.startsWith("/")) return base + endpoint.slice(1)
+  return base + endpoint
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,30 +13,31 @@ export async function GET(request: NextRequest) {
     const params = searchParams.get("params")
 
     if (!endpoint) {
-      return NextResponse.json({ error: "Endpoint parameter is required" }, { status: 400 })
+      return NextResponse.json({ error: "Missing endpoint parameter" }, { status: 400 })
     }
 
-    // Parse parameters if provided
+    // params may be a JSON string or already a query string
     let queryString = ""
     if (params) {
       try {
-        const parsedParams = JSON.parse(params)
-        queryString = new URLSearchParams(parsedParams).toString()
+        const parsed = JSON.parse(params)
+        queryString = new URLSearchParams(parsed).toString()
       } catch {
-        return NextResponse.json({ error: "Invalid parameters format" }, { status: 400 })
+        // fallback: treat as raw query string
+        queryString = params
       }
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://zigscan-api.zigscan.org"
-    const url = `${baseUrl}${endpoint}${queryString ? "?" + queryString : ""}`
+    let url = joinEndpoint(baseUrl, endpoint)
+    if (queryString) url += `?${queryString}`
 
-    // 🟢 Get auth header from client if provided
+    console.log("[proxy] GET ->", url)
+
     const clientAuth = request.headers.get("authorization")
-
     const apiKey = process.env.API_KEY || ""
 
-    // Make the request to the actual API
-    const response = await fetch(url, {
+    const resp = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -38,36 +45,60 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    const data = await response.json()
-    return NextResponse.json(data, { status: response.status })
-  } catch (error) {
-    console.error("API Proxy Error:", error)
-    return NextResponse.json({ error: "Failed to fetch from API" }, { status: 500 })
+    const contentType = resp.headers.get("content-type") || ""
+    const bodyText = await resp.text()
+
+    if (!contentType.includes("application/json")) {
+      console.error("[proxy] non-JSON response", { url, status: resp.status, contentType, snippet: bodyText.slice(0, 1000) })
+      // return the upstream body as-is so you can inspect the HTML error in Vercel logs / client
+      return new NextResponse(bodyText, {
+        status: resp.status,
+        headers: { "content-type": contentType || "text/plain" },
+      })
+    }
+
+    // safe JSON parse
+    let data
+    try {
+      data = JSON.parse(bodyText)
+    } catch (err) {
+      console.error("[proxy] invalid JSON", { url, status: resp.status, snippet: bodyText.slice(0, 1000) })
+      return NextResponse.json({ error: "Invalid JSON from upstream", status: resp.status, bodySnippet: bodyText.slice(0, 1000) }, { status: 502 })
+    }
+
+    return NextResponse.json(data, { status: resp.status })
+  } catch (err) {
+    console.error("API Proxy Error:", err)
+    return NextResponse.json({ error: "Proxy failure", message: err instanceof Error ? err.message : String(err) }, { status: 500 })
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { endpoint, body, params } = await request.json()
+    const payload = await request.json()
+    const { endpoint, body, params } = payload || {}
 
     if (!endpoint) {
-      return NextResponse.json({ error: "Endpoint parameter is required" }, { status: 400 })
+      return NextResponse.json({ error: "Missing endpoint in body" }, { status: 400 })
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://zigscan-api.zigscan.org"
-    let url = `${baseUrl}${endpoint}`
+    let url = joinEndpoint(baseUrl, endpoint)
 
     if (params) {
-      const queryString = new URLSearchParams(params).toString()
-      url += `?${queryString}`
+      try {
+        url += "?" + new URLSearchParams(params).toString()
+      } catch {
+        // ignore if params cannot be converted
+      }
     }
 
-    // 🟢 Forward client Authorization header
-    const clientAuth = request.headers.get("authorization")
+    console.log("[proxy] POST ->", url)
 
+    const clientAuth = request.headers.get("authorization")
     const apiKey = process.env.API_KEY || ""
 
-    const response = await fetch(url, {
+    const resp = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,10 +107,28 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(body || {}),
     })
 
-    const data = await response.json()
-    return NextResponse.json(data, { status: response.status })
-  } catch (error) {
-    console.error("API Proxy Error:", error)
-    return NextResponse.json({ error: "Failed to fetch from API" }, { status: 500 })
+    const contentType = resp.headers.get("content-type") || ""
+    const text = await resp.text()
+
+    if (!contentType.includes("application/json")) {
+      console.error("[proxy] non-JSON POST response", { url, status: resp.status, contentType, snippet: text.slice(0, 1000) })
+      return new NextResponse(text, {
+        status: resp.status,
+        headers: { "content-type": contentType || "text/plain" },
+      })
+    }
+
+    let data
+    try {
+      data = JSON.parse(text)
+    } catch {
+      console.error("[proxy] invalid JSON POST", { url, status: resp.status, snippet: text.slice(0, 1000) })
+      return NextResponse.json({ error: "Invalid JSON from upstream", status: resp.status }, { status: 502 })
+    }
+
+    return NextResponse.json(data, { status: resp.status })
+  } catch (err) {
+    console.error("API Proxy Error:", err)
+    return NextResponse.json({ error: "Proxy failure", message: err instanceof Error ? err.message : String(err) }, { status: 500 })
   }
 }
